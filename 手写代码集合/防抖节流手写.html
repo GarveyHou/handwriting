@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      function fangdou(fn, delay) {
+        let timer = null
+        return function () {
+          let context = this,
+            args = arguments
+          if (timer) {
+            timer = null
+            clearTimeout(timer)
+          }
+          timer = setTimeout(() => {
+            fn.apply(context, arguments)
+          }, delay)
+        }
+      }
+
+      function jieliu(fn, delay) {
+        let timer = null
+
+        return function () {
+          let context = this,
+            args = arguments
+          if (!timer) {
+            timer = setTimeout(() => {
+              fn.apply(context, args)
+              timer = null
+            }, delay)
+          }
+        }
+      }
+
+      function fangdou(fn, delay) {
+        let timer = null
+
+        return function () {
+          let context = this,
+            args = [...arguments]
+          if (timer) {
+            timer = null
+            clearTimeout(timer)
+          }
+          timer = setTimeout(() => {
+            fn.apply(context, args)
+          }, delay)
+        }
+      }
+      function jieliu(fn, delay) {
+        let timer = null
+
+        return function () {
+          let context = this,
+            args = [...arguments]
+
+          if (!timer) {
+            timer = setTimeout(() => {
+              fn.apply(context, args)
+              clearTimeout(timer)
+              timer = null
+            }, delay)
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

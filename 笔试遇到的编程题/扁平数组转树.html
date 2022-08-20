@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const source = [
+        {
+          id: 1,
+          pid: 0,
+          name: 'body',
+        },
+        {
+          id: 2,
+          pid: 1,
+          name: 'title',
+        },
+        {
+          id: 3,
+          pid: 2,
+          name: 'div',
+        },
+        {
+          id: 4,
+          pid: 0,
+          name: 'div',
+        },
+        {
+          id: 9,
+          pid: 4,
+          name: 'div',
+        },
+      ]
+
+      function totree(arr) {
+        // 找根节点
+        let root = arr.filter(({ pid }) => !arr.find((temp) => temp.id == pid))
+        // console.log(root)
+        function getChild(parent) {
+          return parent.map((item) => {
+            let childs = arr.filter((temp) => temp.pid == item.id)
+            item.children = childs
+            // console.log(item)
+            getChild(childs)
+            return item
+          })
+        }
+        return getChild(root)
+      }
+      console.log(totree(source))
+      // console.log(source)
+
+      // function toTree(arr) {
+      //   let root = arr.filter(({ pid }) => !arr.find((temp) => temp.id == pid))
+      // }
+    </script>
+  </body>
+</html>

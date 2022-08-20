@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let data = {
+      name: "侯嘉伟",
+      address: "华农"
+    }
+
+    const vm = {};
+    const obs = new Observer(data);
+
+    vm._data = data = obs;
+
+    function Observer(obj) {
+      const keys = Object.keys(obj);
+
+
+      keys.forEach(k => {
+        Object.defineProperty(this, k, {
+          get() {
+            return obj[k];
+          },
+          set(val) {
+            console.log("触发了响应式，页面可以更新");
+            obj[k] = val;
+          }
+
+
+        })
+
+      })
+
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    var testArr1 = [123, "meili", "123", "mogu", 123];
+    var testArr2 = [123, [1, 2, 3],
+      [1, "2", 3],
+      [1, 2, 3], "meili"
+    ];
+
+    var testArr3 = [123, {
+      a: 1
+    }, {
+      a: {
+        b: 1
+      }
+    }, {
+      a: "1"
+    }, {
+      a: {
+        b: 1
+      }
+    }, "meili"];
+
+
+    function norepeat(arr) {
+      var newArr = [];
+      // 倒着循环，是将第一次出现的重复的元素存入新数组；正着循环，是将最后一次出现的重复第元素存入新数组
+      for (let i = arr.length - 1; i >= 0; i--) {
+        for (let j = i - 1; j >= 0; j--) {
+          if (arrEqual(arr[i], arr[j]) || objEqual(arr[i], arr[j]) || (arr[i] == arr[j])) {
+            i--;
+          }
+        }
+        newArr.unshift(arr[i]);
+      }
+      return newArr;
+    }
+
+    function arrEqual(arr1, arr2) {
+      if (!(arr1 instanceof Array && arr2 instanceof Array)) {
+        return false;
+      }
+      if (arr1.length !== arr2.length) {
+        return false;
+      }
+      for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] instanceof Array && arr2[i] instanceof Array) {
+          if (!arrEqual(arr1[i], arr2[i])) {
+            return false;
+          }
+
+        } else if (arr1[i] !== arr2[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function objEqual(obj1, obj2) {
+      if (!(obj1 instanceof Object && obj2 instanceof Object)) {
+        return false;
+      }
+      if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+        return false;
+      }
+      for (var attr in obj1) {
+        if (!obj2.hasOwnProperty(attr)) {
+          return false;
+        }
+        if (typeof obj1[attr] !== typeof obj2[attr]) {
+          return false;
+        }
+        if (obj1[attr] instanceof Object && obj2[attr] instanceof Object) {
+          return objEqual(obj1[attr], obj2[attr]);
+        } else if (obj1[attr] !== obj2[attr]) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    console.log(norepeat(testArr1));
+    console.log(norepeat(testArr2));
+    console.log(norepeat(testArr3));
+  </script>
+  <!-- <script type="text/javascript">
+    var testArr1 = [123, "meili", "123", "mogu", 123];
+    var testArr2 = [123, [1, 2, 3],
+      [1, "2", 3],
+      [1, 2, 3], "meili"
+    ];
+    var testArr3 = [123, {
+      a: 1
+    }, {
+      a: {
+        b: 1
+      }
+    }, {
+      a: "1"
+    }, {
+      a: {
+        b: 1
+      }
+    }, "meili"];
+
+    function norepeat(arr) {
+      // 定义去重后的新数组
+      var newArr = [];
+      // 倒着循环，是将第一次出现的重复的元素存入新数组；正着循环，是将最后一次出现的重复第元素存入新数组
+      for (let i = arr.length - 1; i >= 0; i--) {
+        for (let j = i - 1; j >= 0; j--) {
+          if (arrEqual(arr[i], arr[j]) || objEqual(arr[i], arr[j]) || (arr[i] == arr[j])) {
+            i--;
+          }
+        }
+        newArr.unshift(arr[i]);
+      }
+      return newArr;
+    }
+
+    // arrEqual函数：判断两个数组是否相等
+    function arrEqual(arr1, arr2) {
+      var a1 = arr1 instanceof Array;
+      var a2 = arr2 instanceof Array;
+      // 判断arr1,arr2是否为数组
+      if (!(a1 && a2)) {
+        return false;
+      }
+      if (arr1.length !== arr2.length) {
+        return false;
+      }
+      for (let i = 0; i < arr1.length; i++) {
+        // 判断数组元素是否是数组
+        if (arr1[i] instanceof Array && arr2[i] instanceof Array) {
+          // 若是数组，则递归判断
+          if (!arrEqual(arr1[i], arr2[i]))
+            return false;
+        } else if (arr1[i] !== arr2[i]) {
+          // 若数组元素是对象，则始终不相等，对象是对引用(内存地址)比较，即{x:1} !== {x:1}
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // objEqual函数：判断两个对象是否相等
+    function objEqual(obj1, obj2) {
+      var o1 = obj1 instanceof Object;
+      var o2 = obj2 instanceof Object;
+      if (!(o1 && o2)) {
+        return false;
+      }
+      if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+        return false;
+      }
+      for (var attr in obj1) {
+        // 判断obj1和obj2的属性是否相同
+        if (!Object.hasOwnProperty(attr)) {
+          return false;
+        }
+        // 判断值的类型是否相同
+        if (typeof obj1[attr] !== typeof obj2[attr]) {
+          return false;
+        }
+        if (obj1[attr] instanceof Object && obj2[attr] instanceof Object) {
+          return objEqual(obj1[attr], obj2[attr]);
+        } else if (obj1[attr] !== obj2[attr]) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    console.log(norepeat(testArr1));
+    console.log(norepeat(testArr2));
+    console.log(norepeat(testArr3));
+  </script> -->
+
+</body>
+
+</html>
