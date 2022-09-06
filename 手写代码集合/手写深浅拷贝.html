@@ -1,104 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <script>
-      function qCopy(obj) {
-        if (typeof obj == 'object' && obj !== null) {
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function qCopy(obj) {
+      if (typeof obj == 'object' && obj !== null) {
+      }
+    }
+
+    // 浅拷贝
+    function qcopy(obj) {
+      if (typeof obj === 'object' && obj !== null) {
+        let temp = Array.isArray(obj) ? [] : {}
+        for (let item in obj) {
+          if (obj.hasOwnProperty(item)) {
+            temp[item] = obj[item]
+          }
         }
+        return temp
+      } else {
+        return obj
+      }
+    }
+
+
+    function qianCopy(obj) {
+      if (typeof obj == 'object' && obj !== null) {
+        let temp = Array.isArray(obj) ? [] : {}
+        for (let item in obj) {
+          if (obj.hasOwnProperty(item)) {
+            temp[item] = obj[item]
+          }
+        }
+        return temp
+
+      } else {
+        return obj
       }
 
-      // 浅拷贝
-      function qcopy(obj) {
-        if (typeof obj === 'object' && obj !== null) {
-          let temp = Array.isArray(obj) ? [] : {}
-          for (let item in obj) {
-            if (obj.hasOwnProperty(item)) {
-              temp[item] = obj[item]
-            }
+    }
+
+    function qiancopy(obj) {
+      if (typeof obj == 'object' || obj !== null) {
+        const res = Array.isArray(obj) ? [] : {}
+        for (var k in obj) {
+          if (obj.hasOwnProperty(k)) {
+            res[k] = obj[k]
           }
-          return temp
+        }
+        return res
+      } else {
+        return obj
+      }
+    }
+    function shencopy(obj) {
+      if (typeof obj == 'object' || obj !== null) {
+        const res = Array.isArray(obj) ? [] : {}
+        for (var k in obj) {
+          if (typeof obj[k] == 'object') {
+            res[k] = shencopy(obj[k])
+          } else {
+            res[k] = obj[k]
+          }
+        }
+        return res
+      } else {
+        return obj
+      }
+    }
+
+
+    const obj = {
+      a: 2,
+      b: 1,
+      c: {
+        d: 1,
+      },
+    }
+    let copy = qcopy(obj)
+    obj.a = 1
+    obj.c.d = 2
+    console.log(obj)
+    console.log(copy)
+
+    // 深拷贝
+    var obj = {
+      id: 1,
+      name: 'andy',
+      msg: {
+        age: 18,
+      },
+      color: ['pink', 'red'],
+    }
+
+    var o = {}
+
+    function deepcopy(newobj, oldobj) {
+      for (var k in oldobj) {
+        var item = oldobj[k]
+
+        if (item instanceof Array) {
+          newobj[k] = []
+          deepcopy(newobj[k], item)
+        } else if (item instanceof Object) {
+          newobj[k] = {}
+          deepcopy(newobj[k], item)
         } else {
-          return obj
+          newobj[k] = item
         }
       }
-      const obj = {
-        a: 2,
-        b: 1,
-        c: {
-          d: 1,
-        },
-      }
-      let copy = qcopy(obj)
-      obj.a = 1
-      obj.c.d = 2
-      console.log(obj)
-      console.log(copy)
+    }
 
-      // 深拷贝
-      var obj = {
-        id: 1,
-        name: 'andy',
-        msg: {
-          age: 18,
-        },
-        color: ['pink', 'red'],
-      }
-
-      var o = {}
-
-      function deepcopy(newobj, oldobj) {
-        for (var k in oldobj) {
-          var item = oldobj[k]
-
-          if (item instanceof Array) {
-            newobj[k] = []
-            deepcopy(newobj[k], item)
-          } else if (item instanceof Object) {
-            newobj[k] = {}
-            deepcopy(newobj[k], item)
-          } else {
-            newobj[k] = item
-          }
+    function deepcopy(newobj, oldobj) {
+      for (let k in oldobj) {
+        var item = oldobj[k]
+        if (item instanceof Array) {
+          newObj[k] = []
+          deepcopy(newobj[k], item)
+        } else if (item instanceof Object) {
+          newObj[k] = {}
+          deepcopy(newObj[k], item)
+        } else {
+          newobj[k] = item
         }
       }
+    }
 
-      function deepcopy(newobj, oldobj) {
-        for (let k in oldobj) {
-          var item = oldobj[k]
-          if (item instanceof Array) {
-            newObj[k] = []
-            deepcopy(newobj[k], item)
-          } else if (item instanceof Object) {
-            newObj[k] = {}
-            deepcopy(newObj[k], item)
-          } else {
-            newobj[k] = item
-          }
+    function sCopy(newObj, oldObj) {
+      for (let k in oldObj) {
+        let item = oldObj[k]
+        if (item instanceof Array) {
+          newObj[k] = []
+          sCopy(newObj[k], item)
+        } else if (item instanceof Object) {
+          newObj[k] = {}
+          sCopy(newObj[k], item)
+        } else {
+          newObj[k] = item
         }
       }
+    }
+    deep(o, obj)
+  </script>
+</body>
 
-      function sCopy(newObj, oldObj) {
-        for (let k in oldObj) {
-          let item = oldObj[k]
-          if (item instanceof Array) {
-            newObj[k] = []
-            sCopy(newObj[k], item)
-          } else if (item instanceof Object) {
-            newObj[k] = {}
-            sCopy(newObj[k], item)
-          } else {
-            newObj[k] = item
-          }
-        }
-      }
-      deep(o, obj)
-    </script>
-  </body>
 </html>

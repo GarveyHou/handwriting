@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // rest参数
+    function myNew(fn, ...args) {
+      var obj = null;
+      // 更改原型
+      obj.__proto__ = fn.prototype;
+      // 更改this指向的fn
+      let result = fn.apply(obj, args);
+      // 执行，根据返回值返回
+      return result instanceof Object ? result : obj
+    }
+
+  </script>
+
+</body>
+
+</html>
