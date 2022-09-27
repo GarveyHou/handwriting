@@ -54,6 +54,20 @@
       }
     }
 
+
+    function bind(context) {
+      if (typeof this !== 'function') {
+        console.log('error!')
+      }
+
+      let args = arguments[1],
+        fn = this
+
+      return function Fn() {
+        return fn.apply(this instanceof Fn ? this : context, args.concat(...arguments))
+      }
+    }
+
     let fn = Object.bind({ a: 1 }, [1])
     let a = new fn()
   </script>
