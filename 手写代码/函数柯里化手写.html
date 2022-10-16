@@ -40,11 +40,17 @@
 
     // }
 
+    function f(a, b, c) {
+      console.log(f.length)
+    }
+    // console.log(f.length)
+
     function curry(fn, currArgs) {
       return function () {
         let args = [...arguments]
         if (currArgs) {
           args = currArgs.concat(args)
+          // args = args.concat(currArgs)
         }
         if (args.length < fn.length) {
           return curry(fn, args)
@@ -61,7 +67,10 @@
     // console.log(sum.length)
 
     const fn = curry(sum)
-
+    fn(1, 2, 3) // 6
+    fn(1, 2)(3) // 6
+    fn(1)(2, 3) // 6
+    fn(1)(2)(3) // 6
     // function curry(fn, currArgs) {
     //   return function () {
     //     let args = [...arguments]
@@ -88,10 +97,7 @@
     //   }
     // }
 
-    fn(1, 2, 3) // 6
-    // fn(1, 2)(3) // 6
-    // fn(1)(2, 3) // 6
-    // fn(1)(2)(3) // 6
+
   </script>
 </body>
 

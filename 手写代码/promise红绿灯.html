@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function red() {
+      console.log('red');
+    }
+    function green() {
+      console.log('green');
+    }
+    function yellow() {
+      console.log('yellow');
+    }
+
+    function light(cb, timer) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          cb();
+          resolve()
+        }, timer);
+      })
+    }
+
+    function step() {
+      Promise.resolve().then(() => {
+        return light(red, 3000)
+      }).then(() => {
+        return light(green, 2000)
+      }).then(() => {
+        return light(yellow, 1000)
+      }).finally(() => {
+        return step()
+      })
+    }
+
+
+    async function fn() {
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          console.log('red')
+          resolve
+        }, 3000)
+      })
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          console.log('green')
+          resolve
+        }, 2000)
+
+      })
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          console.log('yellow')
+          resolve
+        }, 1000)
+      })
+
+      fn()
+    }
+
+
+    // 红绿灯循环
+    function fn() {
+      Promise.resolve().then(() => {
+        return new Promise((resolve => {
+          setTimeout(() => {
+            console.log('red')
+            revolve()
+          }, 3000);
+        }))
+      }).then(() => {
+        return new Promise(revolve => {
+          setTimeout(() => {
+            console.log('green')
+            revolve()
+          }, 2000)
+        })
+      }).then(() => {
+        return new Promise(revolve => {
+          setTimeout(() => {
+            console.log('yellow');
+            revolve()
+          }, 1000)
+        })
+      }).finally(() => {
+        fn()
+      })
+    }
+
+  </script>
+
+
+</body>
+
+</html>

@@ -54,6 +54,15 @@
       }
     }
 
+    function call(context) {
+
+      let args = [...arguments].slice(1)
+
+      context.fn = this
+
+      let result = context.fn(args)
+    }
+
 
     function bind(context) {
       if (typeof this !== 'function') {

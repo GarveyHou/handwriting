@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    class Scheduler {
+      constructor(limit) {
+        // 并发个数限制
+        this.limit = limit
+        // 当前正在执行的个数
+        this.count = 0
+        // 请求队列，存的都是函数而已
+        this.queue = []
+      }
+
+      addTask(delay, str) {
+        const request = () => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              console.log(str);
+              resolve()
+            }, delay)
+          })
+        }
+        this.queue.push(request)
+      }
+
+      taskStart() {
+        for (let i = 0; i < this.limit; i++) {
+          this.request()
+        }
+      }
+
+
+      request() {
+        if (this.queue.length == 0 || this.count > this.limit) {
+          return
+        }
+        this.count++
+        this.queue.shift()().then(() => {
+          this.count--
+          this.request()
+        })
+      }
+    }
+
+
+    const obj = new Scheduler(2)
+
+    obj.addTask(1000, 1)
+    obj.addTask(500, 2)
+    obj.addTask(300, 3)
+    obj.addTask(400, 4)
+
+    obj.taskStart()
+
+
+
+
+  </script>
+
+</body>
+
+</html>

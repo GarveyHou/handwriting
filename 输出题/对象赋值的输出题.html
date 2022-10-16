@@ -11,13 +11,66 @@
 <body>
 
   <script>
-    const obj = {
-      a: 1,
-      b: {
-        c: 2
-      }
-    }
-    console.log(Object.getOwnPropertyDescriptors(obj));;
+    // const obj = {
+    //   a: 1,
+    //   b: {
+    //     c: 2
+    //   }
+    // }
+    // console.log(Object.getOwnPropertyDescriptors(obj));;
+    // const map = new Map()
+    // map.set(1, 1)
+    // map.set(2, 2)
+
+    // console.log(map[Symbol.iterator]().next())
+
+    // let str = new String('123123123123')
+
+
+    // console.log(str[Symbol.iterator]().next())
+
+
+    // const obj = {
+    //   a: 1,
+    //   b: 2
+    // }
+    // Object.prototype.c = '123'
+    // // console.log(obj.prototype)
+    // obj.__proto__.d = 3
+
+    // console.log(Object.keys(obj))
+
+    // for (let key in obj) {
+    //   if (obj.hasOwnProperty(key)) {
+    //     console.log(key)
+    //   }
+    // }
+
+    // console.log(obj)
+
+    // function fn() {
+    //   console.log(arguments)
+    //   console.log([...arguments] instanceof Array)
+    // }
+    // console.log([1, 2, 3] instanceof Array)
+
+
+    // fn(1, 2, 3)
+    const p = Promise.resolve(1).then(() => {
+      return new Promise((a, b) => { })
+    }).then(() => {
+      // throw new Error('error!!!')
+      console.log(123)
+    }).catch(() => {
+      console.log(123)
+      throw new Error('123')
+    })
+    console.log(p)
+
+    setTimeout(() => {
+      console.log(p);
+    }, 1000);
+
   </script>
 
 </body>

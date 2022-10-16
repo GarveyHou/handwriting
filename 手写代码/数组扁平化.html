@@ -12,68 +12,82 @@
   <script>
     /* 1.es6的flat方法 */
     //默认一层，可以加参数depth扁平多层
-    const arr = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
-    const arrres = arr.flat(1)
-    console.log(arrres)
-    console.log('---------------------')
+    // const arr = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
+    // const arrres = arr.flat(1)
+    // console.log(arrres)
+    // console.log('---------------------')
 
-    /* 2.for循环遍历，如果不是数组直接push，否则递归 */
-    var arr1 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
-    function flatten(arr) {
-      var res = []
-      for (var item of arr) {
-        if (Array.isArray(item)) {
-          res = res.concat(flatten(item))
-        } else {
-          res.push(item)
-        }
-      }
-      return res
-    }
-    console.log(flatten(arr1))
-    console.log('------------------')
-    /* 3.while循环,利用arr.some方法和...运算符 */
-    var arr3 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
-    function flatten3(arr) {
-      while (
-        arr.some((item) => {
-          Array.isArray(item)
-        })
-      ) {
-        arr = [].concat(...arr)
-        // arr = Array.prototype.concat.apply([], arr)
-        console.log(arr)
-      }
-      return arr
-    }
-    console.log(flatten3(arr3))
+    // /* 2.for循环遍历，如果不是数组直接push，否则递归 */
+    // var arr1 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
+    // function flatten(arr) {
+    //   var res = []
+    //   for (var item of arr) {
+    //     if (Array.isArray(item)) {
+    //       res = res.concat(flatten(item))
+    //     } else {
+    //       res.push(item)
+    //     }
+    //   }
+    //   return res
+    // }
+    // function flat(arr) {
+    //   const res = []
+    //   for (let item of arr) {
+    //     if (Array.isArray(item)) {
+    //       res = res.concat(flat(item))
+    //     } else {
+    //       res.push(item)
+    //     }
+    //   }
+    // }
+    // console.log(flatten(arr1))
+    // console.log('------------------')
+    // /* 3.while循环,利用arr.some方法和...运算符 */
+    // var arr3 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
+    // function flatten3(arr) {
+    //   while (
+    //     arr.some((item) => {
+    //       Array.isArray(item)
+    //     })
+    //   ) {
+    //     arr = [].concat(...arr)
+    //     // arr = Array.prototype.concat.apply([], arr)
+    //     console.log(arr)
+    //   }
+    //   return arr
+    // }
+    // console.log(flatten3(arr3))
 
-    /* 4.使用reduce */
-    var arr4 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
-    function flatten4(arr) {
-      return arr.reduce((prev, next) => {
-        return prev.concat(Array.isArray(next) ? flatten4(next) : next)
-      }, [])
-    }
-    console.log(flatten4(arr4))
+    // /* 4.使用reduce */
+    // var arr4 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
+    // function flatten4(arr) {
+    //   return arr.reduce((prev, next) => {
+    //     return prev.concat(Array.isArray(next) ? flatten4(next) : next)
+    //   }, [])
+    // }
+    // console.log(flatten4(arr4))
 
-    /* 5.利用数组tostring再split */
-    var arr5 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
-    function flatten5(arr) {
-      return arr.toString().split(',')
-    }
-    console.log(flatten5(arr5))
+    // /* 5.利用数组tostring再split */
+    // var arr5 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
+    // function flatten5(arr) {
+    //   return arr.toString().split(',')
+    // }
+    // console.log(flatten5(arr5))
 
-    /* 6.利用正则和json */
-    var arr6 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
-    function flatten6(arr) {
-      let str = JSON.stringify(arr)
-      // 过滤所有的中中括号
-      str = str.replace(/(\[|\])/g, '')
-      str = '[' + str + ']'
-      return JSON.parse(str)
-    }
-    console.log(flatten6(arr6))
+    // /* 6.利用正则和json */
+    // var arr6 = [1, 2, 3, [1, 2, 3, 4, [2, 3, 4]]]
+    // function flatten6(arr) {
+    //   let str = JSON.stringify(arr)
+    //   // 过滤所有的中中括号
+    //   str = str.replace(/(\[|\])/g, '')
+    //   str = '[' + str + ']'
+    //   return JSON.parse(str)
+    // }
+    // console.log(flatten6(arr6))
+
+    
+    // let arr7 = [1, 2, 3, [4, 5, 6], [7, 8, 9, [10, 11]]]
+    // console.log(JSON.stringify(arr7))
   </script>
 </body>
 
